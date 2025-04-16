@@ -1,0 +1,440 @@
+/* Header Styles */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 60px;
+    background: #ededed;
+    padding: 5px 15px;
+  }
+  
+  .user-img {
+    width: 55px;
+    height: 55px;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+  
+  .dp {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+  }
+  
+  .nav-icons {
+    display: flex;
+    gap: 22px;
+  }
+  
+  .nav-icons li {
+    list-style: none;
+    cursor: pointer;
+    color: #51585c;
+    font-size: 21px;
+  }
+  
+  /* Notification Box */
+  .notif-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 70px;
+    background: #76daff;
+    padding: 0 15px;
+  }
+  
+  .notif-box i {
+    background: #fff;
+    padding: 10px;
+    width: 42px;
+    height: 42px;
+    font-size: 20px;
+    border-radius: 50%;
+    color: #76daff;
+    cursor: pointer;
+  }
+  
+  .notif-box .fa-xmark {
+    color: #fff;
+  }
+  
+  .notif-text {
+    flex: 1;
+    margin: 0 15px;
+  }
+  
+  .notif-text a {
+    text-decoration: none;
+    color: #333;
+    font-size: 0.9em;
+  }
+  
+  /* Search Container */
+  /* Search Container */
+.search-container {
+  display: flex;
+  flex-direction: column; /* Stack the search bar and tags vertically */
+  background: #f6f6f6;
+  padding: 10px 15px;
+}
+
+.search-container .input {
+  position: relative;
+  flex: 1;
+}
+
+.search-container .input input {
+  width: 100%;
+  padding: 8px 15px 8px 40px;
+  border-radius: 10px;
+  border: none;
+  font-size: 12px;
+  background: #fff;
+}
+
+.search-container .input i {
+  position: absolute;
+  left: 15px;
+  top: 10px;
+  color: #bbb;
+  font-size: 14px;
+}
+
+/* Tags Container */
+.tags-container {
+  display: flex;
+  margin-top: 10px;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  padding: 5px 0;
+  scrollbar-width: thin; /* For Firefox */
+}
+
+/* Custom scrollbar styles for WebKit browsers */
+.tags-container::-webkit-scrollbar {
+  height: 6px; /* Scrollbar height */
+}
+
+.tags-container::-webkit-scrollbar-thumb {
+  background-color: #ccc; /* Scrollbar thumb color */
+  border-radius: 10px;
+}
+
+.tags-container::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Scrollbar track background */
+}
+
+/* Tag Styles */
+.tag {
+  padding: 5px 10px;
+  margin-right: 10px;
+  background-color: #e0e0e0;
+  border-radius: 20px;
+  font-size: 12px;
+  color: #333;
+  white-space: nowrap; /* Prevent text wrapping */
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.tag:hover {
+  background-color: #ccc; /* Hover effect */
+}
+
+/* Active Tag Style (Optional if needed) */
+.tag.active {
+  background-color: #bbb;
+  color: #fff;
+}
+
+  
+  /* Chat List */
+  .chat-list {
+    height: calc(100% - 116px);
+    overflow-y: auto;
+  }
+  
+  .chat-list::-webkit-scrollbar {
+    width: 3px;
+  }
+  
+  .chat-list::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+  }
+  
+  .chat-list::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
+
+  .chat-list .chat-box {
+    display: flex;
+    align-items: center;
+    padding: 9px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .chat-list .chat-box:hover {
+    background: #f5f5f5;
+  }
+  
+  .chat-list .chat-box.active {
+    background: #ebebeb;
+  }
+  
+  .chat-list .img-box {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #ccc; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 26px;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  .chat-list .img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .chat-list .chat-details {
+    flex: 1;
+    margin-left: 10px;
+  }
+  
+  .chat-list .chat-details .text-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .chat-list .chat-details .text-head h4 {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #000;
+  }
+  
+  .chat-list .chat-details .text-head .time {
+    font-size: 0.7em;
+    color: #aaa;
+  }
+  
+  .chat-list .chat-details .text-message {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .chat-list .chat-details .text-message p {
+    color: #aaa;
+    font-size: 0.9em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80%;
+  }
+  
+  .unreader {
+    background: #06e744;
+    color: #fff;
+    min-width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8em;
+    font-weight: 400;
+  }
+  
+  .chat-list .unread {
+    color: #06e744;
+  }
+  
+  /* Media Queries */
+  @media (max-width: 768px) {
+    .header {
+      /* flex-direction: column; */
+      height: auto;
+      padding: 10px;
+    }
+  
+    .nav-icons {
+      padding-left: 0;
+    }
+  
+    .notif-box {
+      flex-direction: column;
+      padding: 10px;
+    }
+  
+    .search-container {
+      padding: 5px;
+    }
+  
+    .chat-list .chat-box {
+      padding: 10px;
+    }
+  
+    .chat-list .chat-details .text-message p {
+      max-width: 70%;
+    }
+  }
+  
+  .add-contact {
+    position: absolute; /* Positioned relative to the sidebar */
+    bottom: 20%; /* Adjust as needed for positioning */
+    /* right: 10px; Align to the right of the sidebar */
+    display: flex;
+    align-items: center;
+    background-color: rgba(16, 227, 26, 0.8); /* WhatsApp green in RGB */
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px; /* Padding for the button */
+    border-radius: 50px; /* Rounded edges similar to the WhatsApp button */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-contact:hover {
+    background-color: #1ff66e; /* Darker green on hover */
+  }
+  
+  .contact-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px; /* Space between icon and text */
+  }
+  
+  .contact-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .add-contact p {
+    margin: 0;
+    font-size: 16px;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .add-contact {
+      padding: 8px 15px;
+      font-size: 14px;
+      bottom: 10%; /* Adjust position for smaller screens */
+    }
+  }
+  
+  
+
+  
+  .chat-box {
+    display: flex;
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    cursor: pointer;
+  }
+  
+  /* .img-box {
+    flex: 0 0 30%; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  } */
+  
+  /* .img-cover {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 50px;
+    height: 50px;
+  } */
+  
+  /* .initials {
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #555;
+  } */
+  
+  .chat-details {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .chatlist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .chatlist-header h5 {
+    margin: 0;
+    font-size: 13px;
+  }
+  
+  .chatlist-header .time {
+    font-size: 10px;
+    color: #999;
+  }
+  
+  .chat-message {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .chat-message p {
+    margin: 0;
+    font-size: 12px;
+    color: #333;
+  }
+  
+  .chat-message .highlight {
+    background-color: rgb(57, 246, 73);
+    border-radius: 10px;
+    padding: 2px 5px;
+    font-size: 12px;
+    color: white;
+  }
+  
+  .unread {
+    font-weight: bold;
+    color: red;
+  }
+  .chat-dropdown {
+    padding: 0px;
+    border-radius: 5px;
+    width: 55%;
+    background-color: white;
+    font-size: 13px; 
+    padding: 3px;
+    border: none;
+    outline: none; /* Ensures no outline appears when focused */
+  }
+  
+  .chat-dropdown:active,
+  .chat-dropdown:focus,
+  .chat-dropdown:hover {
+    border: none; /* Removes border in active, focus, and hover states */
+    outline: none; /* Removes outline in these states as well */
+  }
+
+  

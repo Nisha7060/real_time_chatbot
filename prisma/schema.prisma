@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                Int             @id @default(autoincrement())
+  name              String
+  mobile            String          @unique
+  password          String
+  created_at        DateTime        @default(now())
+  updated_at        DateTime        @updatedAt
+
+  messagesSent      Message[]       @relation("MessagesSent")
+  messagesReceived  Message[]       @relation("MessagesReceived")
+  chatContacts      chatContact[]   @relation("UserChatContacts")
+}
+
+model Message {
+  id          String    @id @default(cuid())
+  content     String?
+  mediaUrl    String?
+  mediaType   String?
+  senderId    Int
+  receiverId  Int
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+
+  sender      User      @relation("MessagesSent", fields: [senderId], references: [id])
+  receiver    User      @relation("MessagesReceived", fields: [receiverId], references: [id])
+}
+
+model chatContact {
+  id              Int      @id @default(autoincrement())
+  name            String
+  mobile          String   @unique
+  user_id         Int
+  mapped_id       Int
+  lastMessage     String?
+  lastMessageType String?
+  messageCount    Int      @default(0)
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+
+  User            User     @relation("UserChatContacts", fields: [user_id], references: [id])
+}
+

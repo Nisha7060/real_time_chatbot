@@ -1,0 +1,201 @@
+.template-card {
+  background-color: white;
+  border-radius: 8px;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+  width: 300px;
+  padding-bottom: 0px;
+  margin:0;
+  font-family: Arial, sans-serif;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.template-header {
+  font-size: 16px;
+  /* font-weight: bold; */
+  margin-bottom: 10px;
+}
+
+.template-body {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 12px;
+}
+.template-body p{
+  font-size: 12px;
+  font-weight: normal;
+}
+.template-footer {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.media-content {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  margin-top: 15px;
+
+}
+
+.template-buttons {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.whatsapp-button {
+  /* background-color: #f1f1f1; */
+  /* color: #333; */
+  text-align: center;
+  padding: 8px 10px;
+  /* border-radius: 5px; */
+  /* margin-bottom: 5px; */
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid #6c757d52;
+}
+
+.whatsapp-button:hover {
+  background-color: #ddd;
+}
+
+.whatsapp-button svg {
+  margin-right: 5px;
+}
+
+.created-at {
+  font-size: 11px;
+  color: #999;
+  position: absolute;
+  /* bottom: 10px; */
+  margin-left: 70%;
+  
+}
+
+@media screen and (max-width: 600px) {
+  .template-card {
+    width: 100%;
+  }
+}
+
+
+.created-at {
+  font-size: 10px;
+  color: #aaa;
+  margin-top: -24px;
+  float: right;
+}
+
+.send-btn {
+  background-color: #25d366; /* WhatsApp green */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 12px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.send-btn:hover {
+  background-color: #128c7e; /* Darker green */
+}
+
+/* Modal styling */
+.template-card-modal {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  max-height: 100%;
+  overflow-y: auto;
+  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
+  margin: 10px auto;
+  width: 100%;
+  max-width: 600px;
+}
+
+.template-list::-webkit-scrollbar {
+  width: 3px;
+}
+
+.template-list::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+}
+
+.template-list::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+/* Category and header section */
+.category-text {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 4px;
+}
+
+.template-header-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-right: 19%;
+}
+
+.template-language {
+  font-size: 12px;
+  color: #888;
+}
+
+/* Content section without using Row/Col */
+.template-card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  gap: 15px;
+}
+
+.send-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Send button styling */
+.send-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.send-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Status styling */
+.template-status {
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: left;
+  font-weight: bold;
+}
+
+/* Horizontal line styling */
+hr {
+  border: none;
+  border-top: 1px solid;
+  margin: 15px 0;
+}

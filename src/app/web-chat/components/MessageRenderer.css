@@ -1,0 +1,309 @@
+.message-bubble {
+  max-width: 70%;
+  margin-bottom: 10px;
+  padding: 4px;
+  border-radius: 8px;
+  position: relative;
+  word-wrap: break-word;
+  font-size: 14px;
+  }
+  
+  .outgoing-message {
+    background-color: #dcf8c6; /* WhatsApp's light green for outgoing messages */
+    margin-left: auto;
+    text-align: right;
+    padding: 3px;
+    min-width: 100px;
+  }
+  
+  .incoming-message {
+    background-color: #ffffff; /* White for incoming messages */
+    text-align: left;
+  }
+  
+  .chat-image {
+    border-radius: 10px;
+  }
+  
+  .chat-video, .chat-audio {
+    border-radius: 5px;
+    margin-bottom: 16px;
+    max-width: 260px;
+  }
+  
+  .message-time {
+    display: block;
+    font-size: 10px;
+    color: #999;
+    margin-top: 5px;
+    position: absolute;
+    bottom: 5px;
+    right: 3px;
+  }
+  
+  
+  .system-message {
+    text-align: center;
+    color: #808080;
+    font-style: italic;
+    margin: 10px 0;
+  }
+  
+  .message-bubble {
+    /* padding: 10px; */
+    border-radius: 10px;
+    margin-bottom: 10px;
+    max-width: 80%;
+    position: relative;
+  }
+  
+  .outgoing-message {
+    background-color: #dcf8c6;
+    margin-left: auto;
+  }
+  
+  .incoming-message {
+    background-color: #ffffff;
+    margin-right: auto;
+  }
+  
+  .message-time {
+    font-size: 0.8rem;
+    color: gray;
+    position: absolute;
+    right: 10px;
+    bottom: 0px;
+  }
+  
+  .blue-tick {
+    color: #34b7f1; /* Blue tick for read messages */
+  }
+  
+  /* Styling for date separators */
+  .date-separator {
+    text-align: center;
+    margin: 20px 0;
+    font-weight: bold;
+    color: gray;
+  }
+  
+  /* WhatsApp Style Image Container */
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.chat-image {
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.image-container:hover .chat-image {
+  transform: scale(1.05);
+}
+
+.download-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+  display: none;
+  transition: opacity 0.3s ease;
+}
+
+.image-container:hover .download-icon {
+  display: block;
+}
+
+/* Image Modal Styling */
+.image-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 35px;
+  color: white;
+  cursor: pointer;
+}
+
+.expanded-image {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.expanded-image:hover {
+  transform: scale(1.05);
+}
+
+/* Message Time Styling */
+.message-time {
+  font-size: 0.75rem;
+  color: #999;
+  display: block;
+  margin-top: 8px;
+}
+
+
+.document-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.file-details {
+  display: flex;
+  align-items: center;
+}
+
+.document-icon {
+  font-size: 1.5em;
+  color: #2a7cff;
+  margin-right: 10px;
+}
+
+.file-info {
+  display: flex;
+  /* flex-direction: column; */
+  margin-bottom: 10px;
+}
+
+
+.file-size {
+  font-size: 0.8em;
+  color: #3c3a3a;
+  margin-left: 5px;
+}
+
+.download-button {
+  background-color: #25d366;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+  text-decoration: none;
+  font-size: 0.9em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.download-button .fa-download {
+  margin-right: 5px;
+}
+
+.message-time {
+  font-size: 0.8em;
+  color: #888;
+  margin-top: 0px;
+  display: block;
+}
+
+.document-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  border: 1px solid #e0e0e0;
+  max-width: 300px;
+}
+
+.document-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.file-details {
+  display: flex;
+  align-items: center;
+}
+
+.document-icon {
+  font-size: 24px;
+  color: #d32f2f; /* Red color for PDF */
+  margin-right: 10px;
+}
+
+.file-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.file-name {
+  font-size: 13px;
+  color: #333;
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sender-name{
+  font-size: small;
+}
+
+.modal-overlay1 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content1 {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  width: 400px;
+  position: relative;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-icon {
+  color: #333;
+  transition: color 0.3s;
+}
+
+.close-icon:hover {
+  color: #ff3b30;
+}
+
+.failed-msg1{
+  text-align: start;
+  font-size: 14px;
+}

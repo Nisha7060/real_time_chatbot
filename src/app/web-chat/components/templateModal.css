@@ -1,0 +1,190 @@
+/* General Modal Styling */
+.modal.is-active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.modal {
+  display: none;
+}
+
+.modal-background {
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+}
+
+/* Modal Box Styling */
+.modal-box {
+  width: 100%;
+  height: 600px;
+  max-width: 800px;
+  min-width: 400px;
+  margin: auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+  /* padding: 20px; */
+  max-height: 96vh;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 100;
+}
+
+@media (max-width: 768px) {
+  .modal-box {
+    max-width: 90%;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-box {
+    max-width: 95%;
+    padding: 10px;
+  }
+}
+
+/* Header Section */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.2rem;
+  }
+}
+
+.modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Search Icon */
+.search-icon {
+  font-size: 24px;
+  cursor: pointer;
+  color: #555;
+  background: none;
+}
+
+@media (max-width: 768px) {
+  .search-icon {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-icon {
+    font-size: 1.2rem;
+  }
+}
+
+/* Search Input */
+.search-input {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+}
+
+.search-input-wrapper {
+  position: relative;
+}
+
+.search-input {
+  padding-right: 35px; /* Space for the close icon */
+}
+
+.close-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  cursor: pointer;
+  color: #888;
+}
+
+@media (max-width: 768px) {
+  .search-input {
+    font-size: 14px;
+  }
+}
+
+/* Filter and Button */
+.filter-section{
+  margin: 5px 0px 5px 20px;
+}
+.status-filter {
+  padding: 3px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.new-template-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.new-template-btn:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .new-template-btn {
+    padding: 8px 12px;
+  }
+}
+
+/* Template List Styles */
+.template-list {
+  max-height: 443px;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .template-list {
+    max-height: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .template-list {
+    max-height: 300px;
+  }
+}
+
+.template-content{
+  padding:2%;
+  padding-bottom:0%;
+}
