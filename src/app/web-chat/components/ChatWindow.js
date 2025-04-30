@@ -23,7 +23,7 @@ dayjs.extend(weekday);
 
 import Cookies from 'js-cookie';
 
-const ChatWindow = ({ onBackButtonClick, fetchAllChatLists, ws, fetchChatMessages,chatUnlocked }) => {
+const ChatWindow = ({ onBackButtonClick, fetchAllChatLists, ws, fetchChatMessages }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const [options, setOptions] = useState([]);
@@ -41,11 +41,11 @@ const ChatWindow = ({ onBackButtonClick, fetchAllChatLists, ws, fetchChatMessage
   const lead_id = selectedChat.id;
   const contactName = selectedChat.name;
   const contactImage = default_image;
-  const wab_number_id = selectedChat.wab_number_id;
+  const wab_number_id = selectedChat?.wab_number_id;
   const Mobile = selectedChat.mobile;
-  const agent_id = selectedChat.assign_agent;
-  const agent_name = selectedChat.agent_name;
-  const last_customer_msg_time = selectedChat.last_customer_msg_time;
+  const agent_id = selectedChat?.assign_agent;
+  const agent_name = selectedChat?.agent_name;
+  const last_customer_msg_time = selectedChat?.last_customer_msg_time;
   const [hoveredMessage, setHoveredMessage] = useState(false);
   const [isMenuVisible, setIsMenuVisible] = useState(null);
   const [isModalInfoOpen, setIsModalInfoOpen] = useState(false);
@@ -255,7 +255,7 @@ const ChatWindow = ({ onBackButtonClick, fetchAllChatLists, ws, fetchChatMessage
                   </div>
                   <div className="contact-info">
                     <h5>{contactName && contactName !== 'NA' ? contactName : Mobile}</h5>
-                    <p style={{ color: "#323f4a", fontSize: "small" }}> Assigned To : {agent_name && agent_name !== 'NA' ? agent_name : Mobile}</p>
+                    <p style={{ color: "#323f4a", fontSize: "small" }}>{selectedChat.mobile}</p>
                   </div>
                 </div>
                 {/* <div className='tags-row'>
@@ -276,9 +276,9 @@ const ChatWindow = ({ onBackButtonClick, fetchAllChatLists, ws, fetchChatMessage
 
             <div className="nav-icons">
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <IconButton sx={{ color: '#4caf50', marginRight: 1 }} onClick={""}>
+                {/* <IconButton sx={{ color: '#4caf50', marginRight: 1 }} onClick={""}>
                   <LocalOfferIcon />
-                </IconButton>
+                </IconButton> */}
 
                 <IconButton sx={{ color: '#51585c', marginRight: 0 }} style={{ "font-size": "1.2rem" }} onClick={handleSearchIconClick}>
                   <FontAwesomeIcon icon={faMagnifyingGlass} />
@@ -361,7 +361,7 @@ const ChatWindow = ({ onBackButtonClick, fetchAllChatLists, ws, fetchChatMessage
                         <span className="system-tag">{msg.msg}</span>
                       ) : (
                         <>
-                          <MessageRenderer msg={msg} isOutgoing={msg.type === 'Outgoing'} />
+                          <MessageRenderer msg={msg} isOutgoing={msg.type === 'Outgoing'} socket={ws} />
                           {/* Menu Icon and Dropdown    */}
                           {msg.type === 'Outgoing' && hoveredMessage == idx   && (
                             <div className="menu-button-container">
@@ -403,7 +403,6 @@ const ChatWindow = ({ onBackButtonClick, fetchAllChatLists, ws, fetchChatMessage
         ws={ws}
         setAllChatLists={setAllChatLists}
         agent_name={agent_name}
-        chatUnlocked={chatUnlocked}
       />
 
 

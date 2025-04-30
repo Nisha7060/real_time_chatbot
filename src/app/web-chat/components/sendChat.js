@@ -11,7 +11,7 @@ import MediaPreview from './MediaPreview'; // Import the MediaPreview component
 import AddVariableModal from '../components/AddVariableModal';
 
 
-const ChatInput = ({ lead_id, setMessages, messages, wab_number_id, getTemplates, templates ,agent_id,number,last_customer_msg_time,ws,setAllChatLists,agent_name,chatUnlocked}) => {
+const ChatInput = ({ lead_id, setMessages, messages, wab_number_id, getTemplates, templates ,agent_id,number,last_customer_msg_time,ws,setAllChatLists,agent_name}) => {
   const [message, setMessage] = useState('');
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [showMediaOptions, setShowMediaOptions] = useState(false);
@@ -67,7 +67,7 @@ const ChatInput = ({ lead_id, setMessages, messages, wab_number_id, getTemplates
           type: 'Outgoing',
           status: 'sent',
           uuid,
-          lead_id,
+          lead_id:lead_id,
           sent_by:name,
           created_at: now.toISOString(),
         });
@@ -79,11 +79,11 @@ const ChatInput = ({ lead_id, setMessages, messages, wab_number_id, getTemplates
             media_type: 'text',
             type: 'text',
             uuid,
-            type_desc: message.trim(),
+            msg: message.trim(),
             whatsapp_number_id: wab_number_id,
             is_internal: false,
             assign_agent: user_id,
-            lead_id: lead_id,
+            recipientUserId: lead_id,
           },
         };
         setAllChatLists((prevAllChats) =>
@@ -124,7 +124,7 @@ const ChatInput = ({ lead_id, setMessages, messages, wab_number_id, getTemplates
           body: formData
         };
   
-        let response = await fetch(SEND_WAB_MEDIA, options);
+        let response = await fetch("/api/uploadMedia", options);
   
         if (response.ok) {
           const data = await response.json();
@@ -138,7 +138,6 @@ const ChatInput = ({ lead_id, setMessages, messages, wab_number_id, getTemplates
             type: 'Outgoing',
             status: 'sent',
             uuid,
-            sent_by:name,
             lead_id,
             created_at: now.toISOString(),
           });
@@ -147,14 +146,14 @@ const ChatInput = ({ lead_id, setMessages, messages, wab_number_id, getTemplates
             event_name: 'SendChat',
             event_data: {
               number,
-              media_type: 'media',
-              type: msgType,
+              media_type:msgType ,
+              type: 'media',
               uuid,
-              type_desc: file.url,
+              msg: file.url,
               whatsapp_number_id: wab_number_id,
               assign_agent: user_id,
               is_internal: false,
-              lead_id: lead_id,
+              recipientUserId: lead_id,
             },
           };
           ws.send(JSON.stringify(mediaEventData));
@@ -319,22 +318,6 @@ const ChatInput = ({ lead_id, setMessages, messages, wab_number_id, getTemplates
     };
   }, []);
 
-  useEffect(() => {
-    const currentTime = new Date();
-    const lastMessageTime = new Date(last_customer_msg_time);
-    const timeDifferenceInHours = (currentTime - lastMessageTime) / 1000 / 3600;
-
-    // Lock chat if more than 24 hours have passed
-    if (timeDifferenceInHours > 24) {
-      setIsChatLocked(true);
-    }
-    else if(chatUnlocked){
-      setIsChatLocked(false);
-    }
-     else {
-      setIsChatLocked(false);
-    }
-  }, [last_customer_msg_time]);
 
   const handleModalClose = () =>{
     setVariableValues({}); 

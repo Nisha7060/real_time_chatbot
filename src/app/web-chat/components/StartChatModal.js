@@ -153,7 +153,9 @@ const SidebarForm = ({ open, onClose, fetchAllChatLists, fetchChatMessages }) =>
             renderOption={(props, option) => (
               <Box component="li" {...props} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <PersonIcon />
-                {option.name}
+                {option.name && option.mobile
+                  ? `${option.name} (${option.mobile})`
+                  : option.name || option.mobile}
               </Box>
             )}
             renderInput={(params) => (

@@ -10,14 +10,18 @@ import Cookies from 'js-cookie';
 export default function Home() {
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const [form, setForm] = useState({
     name: '',
     mobile: '',
     password: '',
     confirmPassword: '',
   });
+  const token = Cookies.get("token");
 
-  const router = useRouter();
+  if(token){
+    router.push("/web-chat");
+  }
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -36,15 +40,18 @@ export default function Home() {
     });
 
     const data = await res.json();
-
+    console.log("<><><dataa><><>",data)
     if (res.ok) {
       toast.success(data.message || 'Success!', { autoClose: 2000 });
 
       if (isLogin) {
         Cookies.set('token', data.token, {expires: 1,secure: true,sameSite: 'Strict',});
-        setTimeout(() => router.push('/web-chat'), 1000);
+        Cookies.set('user_id', data?.user?.id, {expires: 1,secure: true,sameSite: 'Strict',});
+        Cookies.set('mobile', data?.user?.mobile, {expires: 1,secure: true,sameSite: 'Strict',});
+        
+        setTimeout(() => router.push('/web-chat'), 100);
       } else {
-        setTimeout(() => setIsLogin(true), 2500); // Redirect to Login tab
+        setTimeout(() => setIsLogin(true), 250); // Redirect to Login tab
       }
     } else {
       toast.error(data.error || 'Something went wrong');

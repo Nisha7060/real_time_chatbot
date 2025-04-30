@@ -6,41 +6,96 @@ const prisma = new PrismaClient();
 
 export async function POST(req) {
   try {
-    // Verify token and get user data (e.g., current logged-in user)
     const data = await VerifyToken(req);
-
-    // Parse request body
     const body = await req.json();
     const { userId } = body;
 
-    // Validate input
     if (!userId) {
       return NextResponse.json({ message: 'userId is required' }, { status: 400 });
     }
 
-    // Check if the user being added exists
-    const user = await prisma.user.findUnique({
-      where: { id: Number(userId) },
+    const currentUserId = Number(data.userId);
+    const targetUserId = Number(userId);
+
+    if (currentUserId === targetUserId) {
+      return NextResponse.json({ message: 'Cannot create chat with yourself' }, { status: 400 });
+    }
+
+    const currentUser = await prisma.user.findUnique({
+      where: { id: currentUserId },
     });
 
-    if (!user) {
+    const targetUser = await prisma.user.findUnique({
+      where: { id: targetUserId },
+    });
+
+    if (!targetUser) {
       return NextResponse.json({ message: 'User not found' }, { status: 404 });
     }
 
-    // Create the contact
-    const contact = await prisma.chatContact.create({
-      data: {
-        name: user.name,
-        mobile: user.mobile,
-        user_id: Number(data.userId),  // creator's ID
-        mapped_id: Number(userId),     // person being added
+    // Check if contact already exists
+    const existingContacts = await prisma.chatContact.findMany({
+      where: {
+        OR: [
+          { user_id: currentUserId, mapped_id: targetUserId },
+          { user_id: targetUserId, mapped_id: currentUserId },
+        ],
       },
     });
 
-    return NextResponse.json({message:"Chat Successfully Start..",data:contact}, { status: 201 });
+    const userToTargetExists = existingContacts?.find(
+      (c) => c.user_id === currentUserId && c.mapped_id === targetUserId
+    );
+    const targetToUserExists = existingContacts.find(
+      (c) => c.user_id === targetUserId && c.mapped_id === currentUserId
+    );
 
+    if (userToTargetExists && targetToUserExists) {
+      return NextResponse.json(
+        { message: 'Chat already exists', data: [userToTargetExists, targetToUserExists] },
+        { status: 200 }
+      );
+    }
+
+    // Create both contacts first without mapped_id
+    const contact1 = await prisma.chatContact.create({
+      data: {
+        name: targetUser.name,
+        mobile: targetUser.mobile,
+        user_id: currentUserId,
+        mapped_id: targetUserId,
+      },
+    });
+
+    const contact2 = await prisma.chatContact.create({
+      data: {
+        name: currentUser.name,
+        mobile: currentUser.mobile,
+        user_id: targetUserId,
+        mapped_id: currentUserId,
+      },
+    });
+
+    // Now update mapped_id for both contacts
+    const updatedContact1 = await prisma.chatContact.update({
+      where: { id: contact1.id },
+      data: { mapped_id: contact2.id },
+    });
+
+    const updatedContact2 = await prisma.chatContact.update({
+      where: { id: contact2.id },
+      data: { mapped_id: contact1.id },
+    });
+
+    return NextResponse.json(
+      { message: 'Chat started', data: [updatedContact1, updatedContact2] },
+      { status: 201 }
+    );
   } catch (error) {
-    console.error('Error creating contact:', error);
-    return NextResponse.json({ message: 'Error creating contact', error: error.message }, { status: 500 });
+    console.error('Error creating chat contacts:', error);
+    return NextResponse.json(
+      { message: 'Internal server error', error: error.message },
+      { status: 500 }
+    );
   }
 }

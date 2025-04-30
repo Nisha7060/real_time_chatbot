@@ -8,3 +8,4 @@ export const START_NEW_CHAT = `${API_BASE_URL}/startNewWabChat`;
 export const CREATE_WAB_TAGS = `${API_BASE_URL}/createWabChatTags`;
 export const ASSIGN_WAB_TAGS = `${API_BASE_URL}/assignWabChatTags`;
 export const UPDATE_COLLABORATOR = `${API_BASE_URL}/updateWabChatCollaborator`;
+export const SEND_WAB_MEDIA = `${API_BASE_URL}/uploadMedia`;

@@ -21,6 +21,7 @@
     "@prisma/client": "^6.6.0",
     "bcryptjs": "^3.0.2",
     "bootstrap": "^5.3.5",
+    "bootstrap-icons": "^1.11.3",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
     "emoji-picker-react": "^4.12.2",
@@ -34,6 +35,8 @@
     "react-icons": "^5.5.0",
     "react-toastify": "^11.0.5",
     "socket.io": "^4.8.1",
-    "socket.io-client": "^4.8.1"
+    "socket.io-client": "^4.8.1",
+    "uuid": "^11.1.0",
+    "ws": "^8.18.1"
   }
 }

@@ -88,6 +88,13 @@ const ChatSidebar = ({handleSelectChat , onOpenForm ,fetchChatMessages ,ws, hand
     handleSelectChat(chat); // Pass the full chat object (id, name, image) to parent component
   };
 
+  const handleLogout = () => {
+    Cookies.remove('token');  // remove auth token or other cookies as needed
+    // Remove all cookies if necessary (optional):
+    Object.keys(Cookies.get()).forEach(cookie => Cookies.remove(cookie));
+    window.location.href = '/login';  // redirect to login
+  };
+
   const getStatusTick = (status) => {
     switch (status) {
       case 'Send':
@@ -192,8 +199,16 @@ const ChatSidebar = ({handleSelectChat , onOpenForm ,fetchChatMessages ,ws, hand
               <path fill-rule="evenodd" clip-rule="evenodd" d="M0.944298 5.52617L2.99998 8.84848V17.3333C2.99998 18.8061 4.19389 20 5.66665 20H19.3333C20.8061 20 22 18.8061 22 17.3333V6.66667C22 5.19391 20.8061 4 19.3333 4H1.79468C1.01126 4 0.532088 4.85997 0.944298 5.52617ZM4.99998 8.27977V17.3333C4.99998 17.7015 5.29845 18 5.66665 18H19.3333C19.7015 18 20 17.7015 20 17.3333V6.66667C20 6.29848 19.7015 6 19.3333 6H3.58937L4.99998 8.27977Z" fill="currentColor"></path>
             </svg>
           </li>
+
+          <li onClick={handleLogout} title="Logout">
+          <svg viewBox="0 0 24 24" height="25" width="25" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <title>Logout</title>
+          <path d="M16 17L21 12L16 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M21 12H9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M13 5V3H5V21H13V19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+          </li>
         </div>
-        {/* <StartChatModal open={isModalOpen} onClose={handleCloseModal} /> */}
       </div>
 
       {/* Search */}

@@ -8,44 +8,42 @@ datasource db {
 }
 
 model User {
-  id                Int             @id @default(autoincrement())
-  name              String
-  mobile            String          @unique
-  password          String
-  created_at        DateTime        @default(now())
-  updated_at        DateTime        @updatedAt
-
-  messagesSent      Message[]       @relation("MessagesSent")
-  messagesReceived  Message[]       @relation("MessagesReceived")
-  chatContacts      chatContact[]   @relation("UserChatContacts")
+  id           Int           @id @default(autoincrement())
+  name         String
+  mobile       String        @unique
+  password     String
+  created_at   DateTime      @default(now())
+  updated_at   DateTime      @updatedAt
+  chatContacts chatContact[] @relation("UserChatContacts")
 }
 
 model Message {
-  id          String    @id @default(cuid())
-  content     String?
-  mediaUrl    String?
-  mediaType   String?
-  senderId    Int
-  receiverId  Int
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
-
-  sender      User      @relation("MessagesSent", fields: [senderId], references: [id])
-  receiver    User      @relation("MessagesReceived", fields: [receiverId], references: [id])
+  id         Int      @id @default(autoincrement())
+  msg        String
+  type       String
+  msg_type   String
+  uuid       String
+  senderId   Int
+  status     String   @default("sent") @db.VarChar(50)
+  receiverId Int?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model chatContact {
-  id              Int      @id @default(autoincrement())
+  id              Int       @id @default(autoincrement())
   name            String
-  mobile          String   @unique
+  mobile          String
   user_id         Int
+  last_msg        String?
+  last_msg_time   DateTime? @updatedAt
+  last_msg_type   String?
+  last_msg_status String?
+  unread          Int       @default(0)
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
   mapped_id       Int
-  lastMessage     String?
-  lastMessageType String?
-  messageCount    Int      @default(0)
-  created_at      DateTime @default(now())
-  updated_at      DateTime @updatedAt
+  User            User      @relation("UserChatContacts", fields: [user_id], references: [id])
 
-  User            User     @relation("UserChatContacts", fields: [user_id], references: [id])
+  @@index([user_id], map: "chatContact_user_id_fkey")
 }
-

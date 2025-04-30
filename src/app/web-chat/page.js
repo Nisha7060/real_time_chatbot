@@ -33,7 +33,7 @@ const page = () => {
       const GetUnreadCountData = {
         event_name: 'ReadChat',
         event_data: {
-          lead_id: String(chat.id),  // Convert lead_id to a string
+          senderId: String(chat.id),  // Convert lead_id to a string
           event_msg: "message read successfully"
         },
       };
@@ -155,20 +155,21 @@ const page = () => {
       }
     };
 
-    const [chatUnlocked , setChatUnlocked] = useState(false)
+
+
   useEffect(() => {
 
     const initiateWebSocket = () => {
       const notificationSound = new Audio('/mixkit-software-interface-start-2574.wav'); // Add your sound file here
 
       if (!socket.current || socket.current.readyState !== WebSocket.OPEN) {
-        socket.current = new WebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_CHAT_URL);
+        socket.current = new WebSocket("ws://localhost:5000");
         setWs(socket.current);
 
         socket.current.onopen = () => {
           const loginEventMessage = JSON.stringify({
-            event_name: "login",
-            event_data: { token: userToken },
+            event_name: "register",
+            data: { token: userToken },
           });
           socket.current.send(loginEventMessage);
           console.log('WebSocket connection opened');
@@ -179,9 +180,10 @@ const page = () => {
    
       socket.current.onmessage = (event) => {
      
-        console.log("Event Received ...", event);
-        let messageJson = event.data.replace(/aaabbb/g, '');
-        let data = JSON.parse(messageJson);
+        // console.log("Event Received ...", event);
+        // let messageJson = event.data.replace(/aaabbb/g, '');
+        let data = JSON.parse(event?.data);
+        data = data?.data ;
         console.log("Event data ...", data);
         let ActiveChat = localStorage.getItem('ActiveChat');
 
@@ -190,15 +192,15 @@ const page = () => {
             // Update status of outgoing messages based on report
             setMessages((prevMessages) =>
               prevMessages.map((message) =>
-                message.uuid === data.uuid && message.lead_id === data.lead_id
-                  ? { ...message, status: data.status,failed_reason:data.failed_reason }
+                message.uuid == data.messageId 
+                  ? { ...message, status: data.status }
                   : message
               )
             );
 
             setAllChatLists((prevAllChats) =>
               prevAllChats.map((chat) =>
-                chat.id === data.lead_id
+                chat.id == data.receiverId
                   ? {
                       ...chat,
                       last_msg_status: data.status
@@ -210,18 +212,17 @@ const page = () => {
             break;
   
           case 'Incoming':
-            setChatUnlocked(true)
             notificationSound.play();
             console.log('Received Incoming message:', data);
             
             ActiveChat = ActiveChat ? JSON.parse(ActiveChat) : null;
-            if (ActiveChat && ActiveChat.id === data.crm_detail_id) {
+            if (ActiveChat && ActiveChat.id === data.senderId) {
               // Update messages if it's the active chat
               setMessages((prevMessages) => [...prevMessages, data]);
 
               setAllChatLists((prevAllChats) =>
                 prevAllChats.map((chat) =>
-                  chat.id == data.crm_detail_id
+                  chat.id == data.senderId
                     ? {
                         ...chat,
                         last_msg_time: data.created_at,
@@ -234,7 +235,7 @@ const page = () => {
               const GetUnreadCountData = {
                 event_name: 'ReadChat',
                 event_data: {
-                  lead_id: String(data.crm_detail_id),  // Convert lead_id to a string
+                  senderId: String(data.senderId),  // Convert lead_id to a string
                   event_msg: "message read successfully"
                 },
               };
@@ -246,7 +247,7 @@ const page = () => {
               // Increment unread count if not the active chat
               setAllChatLists((prevAllChats) =>
                 prevAllChats.map((chat) =>
-                  chat.id === data.crm_detail_id
+                  chat.id === data.senderId
                     ? {
                         ...chat,
                         unread: chat.unread ? chat.unread + 1 : 1,
@@ -265,13 +266,13 @@ const page = () => {
             console.log('Received Outgoing message:', data);
   
             ActiveChat = ActiveChat ? JSON.parse(ActiveChat) : null;
-            if (ActiveChat && ActiveChat.id === data.crm_detail_id) {
+            if (ActiveChat && ActiveChat.id === data.senderId) {
               // Update messages if it's the active chat
               setMessages((prevMessages) => [...prevMessages, data]);
 
               setAllChatLists((prevAllChats) =>
                 prevAllChats.map((chat) =>
-                  chat.id == data.crm_detail_id
+                  chat.id == data.senderId
                     ? {
                         ...chat,
                         last_msg_time: data.created_at,
@@ -316,7 +317,7 @@ const page = () => {
     return () => {
       cleanupWebSocket();
     };
-  }, [userToken,chatUnlocked]);
+  }, [userToken]);
 
     
   return (
@@ -342,7 +343,6 @@ const page = () => {
             fetchAllChatLists={fetchAllChatLists}
             ws={wsobj}
             fetchChatMessages={fetchChatMessages}
-            chatUnlocked ={chatUnlocked}
           />
         ) : (
           <div className="no-chat-selected">

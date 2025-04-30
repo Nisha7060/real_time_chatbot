@@ -1,6 +1,5 @@
 'use client';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // important for toast
+import './globals.css'; // your own styles
 import { ChatProvider } from "./web-chat/ChatContext";
 
 export default function RootLayout({ children }) {
@@ -16,6 +15,11 @@ export default function RootLayout({ children }) {
         <ChatProvider >
         {children}
         </ChatProvider>
+        {/* ✅ Bootstrap JS from CDN (load after content) */}
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+          async
+        ></script>
         </body>
     </html>
   );

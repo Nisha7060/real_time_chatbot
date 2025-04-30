@@ -10,6 +10,7 @@ export async function GET(req) {
     // Verify user from token (assuming userId is returned)
     const data = await VerifyToken(req);
     const userId = Number(data.userId);
+    const userMobile = Number(data.username);
 
     if (!userId) {
       return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
@@ -18,22 +19,16 @@ export async function GET(req) {
     // Fetch all chat contacts for this user
     const contacts = await prisma.chatContact.findMany({
       where: {
-        user_id: userId,
+        OR: [
+          { user_id: userId },
+        ],
+        NOT: {
+          mobile: userMobile.toString(), // replace `userMobile` with the mobile you want to exclude
+        }
       },
       orderBy: {
         updated_at: 'desc',
-      },
-      select: {
-        id: true,
-        name: true,
-        mobile: true,
-        lastMessage: true,
-        lastMessageType: true,
-        messageCount: true,
-        created_at: true,
-        updated_at: true,
-        mapped_id: true,
-      },
+      }
     });
 
     return NextResponse.json(contacts, { status: 200 });

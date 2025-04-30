@@ -1,4 +1,4 @@
-import { useState ,useMemo} from 'react';
+import { useState,useEffect ,useMemo} from 'react';
 import Image from 'next/image';
 import { format } from 'date-fns'; // Importing date-fns for date formatting
 import './MessageRenderer.css'; // Import custom CSS for styling
@@ -7,12 +7,32 @@ import { AiOutlineDownload } from 'react-icons/ai'; // For download icon
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilePdf, faDownload } from '@fortawesome/free-solid-svg-icons'; // Update icon to faFilePdf for PDFs
 
-const MessageRenderer = ({ msg, isOutgoing }) => {
+const MessageRenderer = ({ msg, isOutgoing,socket }) => {
   const messageClass = isOutgoing ? 'outgoing-message' : 'incoming-message';
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [reason, setReason] = useState('');
 
+
+  useEffect(() => {
+    if (!isOutgoing && msg.status !== 'read') {
+
+      const GetStatusData = {
+        event_name: 'Report',
+        event_data: {
+          messageId: String(msg.id),
+          senderId: String(msg.senderId),  // Convert lead_id to a string
+          receiverId: String(msg.receiverId),  // Convert lead_id to a string
+          status: "read"
+        },
+      };
+
+      // Send event via socket
+      if (socket && socket.readyState === WebSocket.OPEN) {
+        socket.send(JSON.stringify(GetStatusData));
+      }
+    }
+  }, [msg, isOutgoing, socket]);
 
   // Function to handle showing the modal
   const handleIconClick = (reso) => {

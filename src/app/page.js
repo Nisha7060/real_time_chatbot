@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Cookies from 'js-cookie';
 
 export default function Home() {
   const [isLogin, setIsLogin] = useState(true);
@@ -17,6 +18,12 @@ export default function Home() {
   });
 
   const router = useRouter();
+
+  const token = Cookies.get("token");
+  
+    if(token){
+      router.push("/web-chat");
+    }
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -37,12 +44,16 @@ export default function Home() {
     const data = await res.json();
 
     if (res.ok) {
-      toast.success(data.message || 'Success!', { autoClose: 2000 });
+      toast.success(data.message || 'Success!', { autoClose: 1000 });
 
       if (isLogin) {
-        setTimeout(() => router.push('/web-chat'), 2500);
+        Cookies.set('token', data?.token, {expires: 1,secure: true,sameSite: 'Strict',});
+        Cookies.set('user_id', data?.user?.id, {expires: 1,secure: true,sameSite: 'Strict',});
+        Cookies.set('mobile', data?.user?.mobile, {expires: 1,secure: true,sameSite: 'Strict',});
+        
+        setTimeout(() => router.push('/web-chat'), 200);
       } else {
-        setTimeout(() => setIsLogin(true), 2500); // Redirect to Login tab
+        setTimeout(() => setIsLogin(true), 200); // Redirect to Login tab
       }
     } else {
       toast.error(data.error || 'Something went wrong');
