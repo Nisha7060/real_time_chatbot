@@ -280,7 +280,7 @@ const ChatWindow = ({ onBackButtonClick, fetchAllChatLists, ws, fetchChatMessage
                   <LocalOfferIcon />
                 </IconButton> */}
 
-                <IconButton sx={{ color: '#51585c', marginRight: 0 }} style={{ "font-size": "1.2rem" }} onClick={handleSearchIconClick}>
+                <IconButton sx={{ color: '#51585c', marginRight: 0 }} style={{ "fontSize": "1.2rem" }} onClick={handleSearchIconClick}>
                   <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </IconButton>
               </Box>
