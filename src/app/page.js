@@ -21,9 +21,11 @@ export default function Home() {
 
   const token = Cookies.get("token");
   
-    if(token){
-      router.push("/web-chat");
+  useEffect(() => {
+    if (!token) {
+      router.push('/login');
     }
+  }, [token]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });

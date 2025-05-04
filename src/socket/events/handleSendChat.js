@@ -33,7 +33,7 @@ async function handleSendChat({ senderUserId, data, connectedUsers, prisma }) {
         data: {
           last_msg: msg,
           last_msg_type: media_type || type,
-          last_msg_status: 'sent',
+          last_msg_status: 'read',
           unread: { increment: 1 },
           last_msg_time: new Date(),
         },
@@ -45,7 +45,7 @@ async function handleSendChat({ senderUserId, data, connectedUsers, prisma }) {
         data: {
           last_msg: msg,
           last_msg_type: media_type || type,
-          last_msg_status: 'sent',
+          last_msg_status: 'read',
           unread: 0, // No unread for sender
           last_msg_time: new Date(),
         },
@@ -65,7 +65,7 @@ async function handleSendChat({ senderUserId, data, connectedUsers, prisma }) {
       });
   
       const actualSenderUserId = senderContact?.user_id;
-  
+      console.log("<><>senderContact<><>",senderContact)
       // Emit to recipient if online
       const recipientSocket = connectedUsers[actualSenderUserId];
       if (recipientSocket) {
