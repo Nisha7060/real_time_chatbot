@@ -1,61 +1,55 @@
-💬 Realtime Chat App
-A full-stack real-time chat application built using Next.js (Frontend & Backend APIs) and Node.js WebSocket Server. It supports real-time one-to-one messaging, contact-based chats, media messages, read/unread status, and an intuitive UI similar to WhatsApp.
+# 💬 Realtime Chat App
 
-📌 Table of Contents
-Features
+A full-stack real-time chat application built using **Next.js** (frontend & backend APIs) and a custom **Node.js WebSocket server**. It supports real-time one-to-one messaging, contact-based chats, media messages, read/unread status, and an intuitive UI inspired by WhatsApp.
 
-Tech Stack
+---
 
-Project Structure
+## 📌 Table of Contents
 
-Installation
+- [✨ Features](#-features)  
+- [🛠 Tech Stack](#-tech-stack)  
+- [📁 Project Structure](#-project-structure)  
+- [⚙️ Environment Setup](#️-environment-setup)  
+- [🧰 Installation](#-installation)  
+- [🚀 Usage](#-usage)  
+- [🔄 WebSocket Events](#-websocket-events)
 
-Usage
+---
 
-API Overview
+## ✨ Features
 
-WebSocket Events
+- ✅ User Authentication (Login/Logout)  
+- 🧑‍🤝‍🧑 Contact Mapping and Chat Initiation  
+- 💬 One-to-One Messaging  
+- 🔔 Real-time Messaging via WebSocket  
+- 👁️ Message Read/Unread Status  
+- 🖼️ Image/Media Message Support  
+- 📁 Organized Chat List by Latest Message  
+- 📊 Unread Message Count per Contact  
 
+---
 
+## 🛠 Tech Stack
 
-✨ Features
-✅ User Authentication (Login/Logout)
+### Frontend
 
-🧑‍🤝‍🧑 Contact Mapping and Chat Initiation
+- [Next.js](https://nextjs.org/) (App Router)
+- Tailwind CSS / CSS Modules
+- WebSocket Client for real-time updates
+- UUID for unique message IDs
 
-💬 One-to-One Messaging
+### Backend
 
-🔔 Real-time Messaging via WebSocket
+- Node.js with Express.js
+- WebSocket (`ws`) or Socket.IO
+- Prisma ORM
+- PostgreSQL / MySQL
 
-👁️ Message Read/Unread Status
+---
 
-🖼️ Image/Media Message Support
+## 📁 Project Structure
 
-📁 Organized chat list by latest message
-
-📊 Unread message count per contact
-
-🛠 Tech Stack
-Frontend
-Next.js with functional components
-
-Tailwind CSS / CSS Modules
-
-WebSocket Client for real-time communication
-
-UUID for unique message identification
-
-Backend
-Node.js + Express.js
-
-WebSocket / WS or Socket.IO
-
-Prisma ORM for database operations
-
-PostgreSQL / MySQL as database
-
-📁 Project Structure
-
+```bash
 real_time_chatbot/
 ├── prisma/                     # Prisma schema and migrations
 │   └── schema.prisma
@@ -83,18 +77,22 @@ real_time_chatbot/
 ├── README.md
 
 
-⚙️ Environment Setup
-1. Environment Variables (.env)
 
+---
+
+## ⚙️ Environment Setup
+
+Create a `.env` file in the root directory and add the following:
+
+```env
 DATABASE_URL="mysql://root:@localhost:3306/chat_db"
 NODE_ENV="development"
 NEXT_PUBLIC_API_BASE_URL="http://localhost:3000/api"
-AUTH_SECRET="Use your Key"
+AUTH_SECRET="your_auth_secret_key"
 WEBSOCKET_CHAT_URL="ws://localhost:5000"
 
-
 🧰 Installation
-1. Clone the repo
+1. Clone the Repository
 bash
 Copy
 Edit
@@ -115,24 +113,24 @@ Copy
 Edit
 cd ../client
 npm install
-npm start
+npm run dev
 🚀 Usage
-Open http://localhost:3000 to access the app.
+Open your browser and go to: http://localhost:3000
 
-Login with your credentials.
+Login using your credentials
 
-Start chatting with mapped contacts.
+Start chatting with your contacts
 
-View read receipts, send media, and get real-time updates.
+Enjoy real-time updates, media messages, and read receipts
 
 🔄 WebSocket Events
-From Client → Server
-SendChat: Send new message
+Client → Server
+Event	Description
+SendChat	Send a new chat message
+Read	Mark message as "read"
 
-Read: Mark message as read
-
-From Server → Client
-Incoming: New message received
-
-Report: Message status updated to "read"
+Server → Client
+Event	Description
+Incoming	A new message is received
+Report	A message is marked as "read"
 
