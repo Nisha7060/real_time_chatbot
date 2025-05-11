@@ -5,7 +5,7 @@ async function handleSendChat({ senderUserId, data, connectedUsers, prisma }) {
       // Get recipient's contact (where we save the message)
       const recipientContact = await prisma.chatContact.findUnique({
         where: { id: recipientUserId },
-        select: { mapped_id: true },
+        select: { mapped_id: true ,user_id:true},
       });
   
       if (!recipientContact) {
@@ -14,6 +14,7 @@ async function handleSendChat({ senderUserId, data, connectedUsers, prisma }) {
       }
   
       const senderMappedId = recipientContact.mapped_id;
+      const senderUser_id = recipientContact.user_id;
   
       // Save message
       const savedMessage = await prisma.message.create({
@@ -34,7 +35,6 @@ async function handleSendChat({ senderUserId, data, connectedUsers, prisma }) {
           last_msg: msg,
           last_msg_type: media_type || type,
           last_msg_status: 'read',
-          unread: { increment: 1 },
           last_msg_time: new Date(),
         },
       });
@@ -46,7 +46,7 @@ async function handleSendChat({ senderUserId, data, connectedUsers, prisma }) {
           last_msg: msg,
           last_msg_type: media_type || type,
           last_msg_status: 'read',
-          unread: 0, // No unread for sender
+          unread:{ increment: 1 }, // No unread for sender
           last_msg_time: new Date(),
         },
       });
@@ -68,11 +68,36 @@ async function handleSendChat({ senderUserId, data, connectedUsers, prisma }) {
       console.log("<><>senderContact<><>",senderContact)
       // Emit to recipient if online
       const recipientSocket = connectedUsers[actualSenderUserId];
+      const senderSocket = connectedUsers[senderUser_id];
+
+
       if (recipientSocket) {
         recipientSocket.send(JSON.stringify({
           event: 'Incoming',
           data: savedMessage,
         }));
+      }
+
+      if (recipientSocket) {
+        senderSocket.send(JSON.stringify(
+          {
+            event: 'Report',
+            data: {
+              type:"Report",
+              messageId:uuid,
+              receiverId:recipientUserId,
+              status:"delivered",
+            },
+          }
+        ));
+         // Update recipient's chatContact
+         await prisma.chatContact.update({
+          where: {id:savedMessage?.id },
+          data: {
+            status:"delivered",
+          },
+        });
+
       }
   
       console.log(`📤 Message sent from user_id=${actualSenderUserId} to contact_id=${recipientUserId}`);

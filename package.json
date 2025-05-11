@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "socket": "node server.js",
+    "next": "next dev",
+    "dev": "concurrently \"npm run next\" \"npm run socket\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -38,5 +40,8 @@
     "socket.io-client": "^4.8.1",
     "uuid": "^11.1.0",
     "ws": "^8.18.1"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
   }
 }
